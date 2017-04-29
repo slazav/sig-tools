@@ -1,0 +1,8 @@
+*.o
+sig_filter
+testsig
+testsig_noise
+*.dat
+*.txt
+*.pnm
+*.png
