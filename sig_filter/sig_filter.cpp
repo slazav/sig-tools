@@ -10,15 +10,15 @@
 #include "filters.h"
 
 
-// unpack data written by pico_rec into x-y text table
+// unpack data written as .sig into x-y text table
 
 using namespace std;
 
 // print help
 void help(){
-  cout << "pico_filter -- read and process pico_rec datafiles\n"
-          "Usage: pico_filter [options] <filename> [filter options]\n"
-          "       pico_filter [options] -M <filename> ... -- [filter options]\n"
+  cout << "sig_filter -- read and process .sig datafiles\n"
+          "Usage: sig_filter [options] <filename> [filter options]\n"
+          "       sig_filter [options] -M <filename> ... -- [filter options]\n"
           "Options:\n"
           " -h        -- write this help message and exit\n"
           " -f <name> -- filter name\n"
