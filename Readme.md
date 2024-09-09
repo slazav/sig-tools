@@ -1,16 +1,16 @@
-## pico_osc -- programs for recording and processing oscilloscope signals
+
+
+This is a fork of a https://github.com/slazav/pico_osc.git project written by V.Zavjalov.
+As a part of the original project, this fork contains only tools for processing .sig format, all device-related programs were excluded, 
+Further is an original Readme.md file with the above-mentioned modifications.
+
+
+## sig_tools -- programs for processing oscilloscope signals
 
 ### Folders:
 
-* pico_rec -- SPP interface to Picoscope 4000 devices. (SPP is a "simple pipe protocol" used
-to communicate with command-line programs via unix pipes. It is used in some of
-my programs: graphene, device2. This allows to use the oscilloscopes in the device2 system,
-but the communication can be also done with simple shell scripts).
-Program res
+* sig_filter  -- Program for processing signals recorded in .sig format.
 
-* pico_log_py -- Python library for accessing oscilloscopes (by M.Will).
-
-* sig_filter  -- Program for processing signals recorded by pico_rec program.
 I'm using a simple custom format SIG for recording signals. It contains a
 text header and binary data from oscilloscope. There is also SIGF
 variant written in frequency domain (it is possible to reduce frequency
@@ -28,11 +28,6 @@ data from sig files using these marks.
 * sig_python  -- a simple python library for reading sig files
 
 * signals     -- signal examples
-
-* ps3000      -- old programs for ps3000 device: HTTP server + tcl interface
-
-* pico_repack -- scripts for repacking pico libraries from original DEBs
-to Altlinux RPMs.
 
 * modules -- I'm using my mapsoft2 build system with local set of modules.
 See https://github.com/slazav/mapsoft2-libs

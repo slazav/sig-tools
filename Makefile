@@ -1,5 +1,4 @@
 all:
-	make -C pico_osc
 	make -C sig_filter
 	make -C sig_viewer
 
@@ -23,7 +22,6 @@ bindir ?= /usr/bin
 
 install: all
 	mkdir -p ${bindir} ${libdir}/tcl/ ${tcldatadir}/${name}-${ver}
-	install -m755 pico_osc/pico_osc ${bindir}
 	install -m755 sig_filter/sig_filter sig_filter/sig_pnmtopng sig_filter/sig_pnginfo ${bindir}
 	install -m755 sig_pngfig/sig_pngfig ${bindir}
 	install -m644 sig_viewer/sig_load.so ${libdir}/tcl/
