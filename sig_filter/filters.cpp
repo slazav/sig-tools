@@ -1298,6 +1298,6 @@ void
 flt_txt(ostream & ff, const Signal & s, const int argc, char **argv){
   const char *name = "txt";
   if (argc>1) throw Err() << name << ": extra argument found: " << argv[1];
-
+  ff << setprecision(9) << scientific;
   write_txt(ff, s);
 }
