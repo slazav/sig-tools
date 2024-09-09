@@ -5,7 +5,7 @@ As a part of the original project, this fork contains only tools for processing 
 Further is an original Readme.md file with the above-mentioned modifications.
 
 
-## sig_tools -- programs for processing oscilloscope signals
+## sig-tools -- programs for processing oscilloscope signals
 
 ### Folders:
 
