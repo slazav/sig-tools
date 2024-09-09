@@ -192,9 +192,9 @@ flt_fft_pow(ostream & ff, const Signal & s, const int argc, char **argv){
       n++;
       // print point and reset counters if needed
       if (i*df >= fmin*fstep || i==i2f-1){
-        ff << (i-0.5*(n-1))*df;
+        ff << setprecision(10) << (i-0.5*(n-1))*df;
         for (int c = 0; c<cN; c++){
-          ff << "\t" << k*ss[c]/n;
+          ff << "\t" << setprecision(8) << k*ss[c]/n;
           ss[c]=0;
         }
         ff << "\n";
@@ -215,9 +215,9 @@ flt_fft_pow(ostream & ff, const Signal & s, const int argc, char **argv){
       n++;
       // print point and reset counters if needed
       if (i*df >= fmin + fstep || i==i2f-1){
-        ff << (i-0.5*(n-1))*df;
+        ff << setprecision(10) << (i-0.5*(n-1))*df;
         for (int c = 0; c<cN; c++){
-          ff << "\t" << k*ss[c]/n;
+          ff << "\t" << setprecision(8) << k*ss[c]/n;
           ss[c]=0;
         }
         ff << "\n";
@@ -301,7 +301,7 @@ flt_fft_pow_corr(ostream & ff, const Signal & s, const int argc, char **argv){
       n++;
       // print point and reset counters if needed
       if (i*df >= fmin*fstep || i==i2f-1){
-        ff << (i-0.5*(n-1))*df << "\t" << k*hypot(sre,sim)/n << "\n";
+        ff << setprecision(10) << (i-0.5*(n-1))*df << "\t" << setprecision(8) << k*hypot(sre,sim)/n << "\n";
         sre=0; sim=0;
         n=0; fmin=i*df;
       }
@@ -321,7 +321,7 @@ flt_fft_pow_corr(ostream & ff, const Signal & s, const int argc, char **argv){
       n++;
       // print point and reset counters if needed
       if (i*df >= fmin + fstep || i==i2f-1){
-        ff << (i-0.5*(n-1))*df << "\t" << k*hypot(sre,sim)/n << "\n";
+        ff << setprecision(10) << (i-0.5*(n-1))*df << "\t" << setprecision(8) << k*hypot(sre,sim)/n << "\n";
         sre=0; sim=0;
         n=0; fmin=i*df;
       }
@@ -367,8 +367,8 @@ flt_sfft_txt(ostream & ff, const Signal & s, const int argc, char **argv) {
     // print selected frequency range
     ff << scientific;
     for (int i=i1f; i<i2f; i++){
-      ff << s.t0 + s.dt*(iw+win/2) << "\t" << i*df << "\t"
-         << fft.real(i) << "\t" << fft.imag(i) << "\n";
+      ff << setprecision(10) << s.t0 + s.dt*(iw+win/2) << "\t" << i*df << "\t"
+         << setprecision(8) << fft.real(i) << "\t" << fft.imag(i) << "\n";
     }
     ff << "\n";
   }
@@ -417,8 +417,8 @@ flt_sfft_pow(ostream & ff, const Signal & s, const int argc, char **argv) {
     // print selected frequency range
     ff << scientific;
     for (int j=i1f; j<i2f; j++){
-      ff << s.t0 + s.dt*(iw+win/2) << "\t" << j*df << "\t"
-         << data[j-i1f] << "\n";
+      ff << setprecision(10) << s.t0 + s.dt*(iw+win/2) << "\t" << j*df << "\t"
+         << setprecision(8) << data[j-i1f] << "\n";
     }
     ff << "\n";
   }
@@ -468,7 +468,7 @@ flt_sfft_int(ostream & ff, const Signal & s, const int argc, char **argv) {
       sum+=fft.abs(i)*fft.abs(i);
       n++;
     }
-    ff << s.t0 + s.dt*(iw+win/2) << "\t" << sqrt(sum/n) << "\n";
+    ff << setprecision(10) << s.t0 + s.dt*(iw+win/2) << "\t" << setprecision(8) << sqrt(sum/n) << "\n";
   }
 }
 
@@ -610,7 +610,7 @@ flt_sfft_peaks(ostream & ff, const Signal & s, const int argc, char **argv) {
       double vp = e[i-i1f+1]/eavr;
       double vn = e[i-i1f-1]/eavr;
       if (v>th && v>vn && v>vp){
-        ff << "\t" << i*df << " " << data[i-i1f];
+        ff << "\t" << setprecision(10) << i*df << " " << setprecision(8) << data[i-i1f];
       }
     }
     ff << "\n";
@@ -1216,7 +1216,7 @@ dc(ostream & ff, const Signal & s, const int argc, char **argv) {
     for (int i=0; i<N; i++){
       avr += s.chan[c][i]*s.chan[c].sc;
     }
-    ff << setprecision(6)  << avr/N << "\n";
+    ff << setprecision(6) << avr/N << "\n";
   }
 }
 
@@ -1239,8 +1239,8 @@ minmax(ostream & ff, const Signal & s, const int argc, char **argv) {
       if (v<min) min = v;
       if (v>max) max = v;
     }
-    ff << setprecision(6)  << min << " "
-       << setprecision(6)  << max << "\n";
+    ff << setprecision(6) << min << " "
+       << setprecision(6) << max << "\n";
   }
 }
 
