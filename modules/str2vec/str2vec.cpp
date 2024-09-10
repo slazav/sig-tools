@@ -29,3 +29,16 @@ vector<double> str2dvec(const char *str){
   }
   return ret;
 }
+
+// same for const char *
+vector<const char*> str2cvec(const char *str){
+  char *s, *t, *saveptr;
+  const char * delim="\n\t ,";
+  vector<const char *> ret;
+  for (s = (char*)str; ;s = NULL) {
+    t = strtok_r(s, delim, &saveptr);
+    if (t == NULL) break;
+    ret.push_back((const char *)t);
+  }
+  return ret;
+}

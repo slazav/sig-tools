@@ -10,4 +10,7 @@ std::vector<int> str2ivec(const char *str);
 // same for doubles
 std::vector<double> str2dvec(const char *str);
 
+// same for const char *
+std::vector<const char *> str2cvec(const char *str);
+
 #endif
