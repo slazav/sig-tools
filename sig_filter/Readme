@@ -1,8 +1,10 @@
-* sig_filter -- program for processing signals recorded by pico_rec program.
+* sig_filter -- program for processing signals in .sig format (e.g. recorded by pico_rec program).
 
 Some of filters ptint pnm-file on output. Information about frequency and
 time scales are stored in PNM comments. There is a few programs for
 working with such files:
+
+* sig_info -- program for reading parameters from .sif data files.
 
 * sig_pnmtopng -- a filter program for converting PNM images to PNG.
 Saves all PNM comments into "pnmc" chunk.

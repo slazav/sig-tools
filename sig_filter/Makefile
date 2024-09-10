@@ -1,5 +1,5 @@
 PROGRAMS := sig_filter testsig_decay testsig_2decay testsig_noise\
-            wav2sig sig2wav sig_pnmtopng sig_pnginfo
+            wav2sig sig2wav sig_pnmtopng sig_pnginfo sig_info
 
 MOD_SOURCES := filters.cpp
 MOD_HEADERS := filters.h
