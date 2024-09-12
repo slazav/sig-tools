@@ -21,6 +21,7 @@ void help(){
           "       sig_filter [options] -M <filename> ... -- [filter options]\n"
           "Options:\n"
           " -h        -- write this help message and exit\n"
+          " -v        -- verbose mode, add all filter parameters to the output"
           " -f <name> -- filter name\n"
           " -P <pars> -- Find pulse and set t0. <pars> are comma- or space-separated values:\n"
           "              channel (0,1,etc.), threshold (0..1, default 0.9),\n"
@@ -180,16 +181,18 @@ main(int argc, char *argv[]){
     int pulse_ch = -1;
     double pulse_t1 = tmin;
     double pulse_t2 = tmax;
+    bool verb = false;
 
     /* parse  options */
     opterr=0;
     while(1){
-      int c = getopt(argc, argv, "+hf:c:T:U:C:D:P:M");
+      int c = getopt(argc, argv, "+hvf:c:T:U:C:D:P:M");
       if (c==-1) break;
       switch (c){
         case '?': throw Err() << "Unknown option: -" << (char)optopt;
         case ':': throw Err() << "No argument: -" << (char)optopt;
         case 'h': help(); return 0;
+        case 'v': verb = true; break;
         case 'f': flt = optarg; break;
         case 'c': cn = optarg; break;
         case 'T': tmin = atof(optarg); break;
@@ -203,6 +206,10 @@ main(int argc, char *argv[]){
         case 'M': mult = true; break;
       }
     }
+
+    // print headers if needed
+    if (verb) { cout << "#"; for(int i=0;i<argc;i++) cout<< " " << argv[i]; cout << endl; }
+
     argc-=optind;
     argv+=optind;
     optind=1;
