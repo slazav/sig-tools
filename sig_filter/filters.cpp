@@ -1035,6 +1035,46 @@ fitn(ostream & ff, const Signal & s, const int argc, char **argv) {
 
 /******************************************************************/
 void
+sfit(ostream & ff, const Signal & s, const int argc, char **argv) {
+  const char *name = "sfit";
+
+  double fmin=0, fmax=+HUGE_VAL;
+  int win = 1024;
+  // parse options (opterr==0, optint==1)
+  while(1){
+    int c = getopt(argc, argv, "+F:G:w:");
+    if (c==-1) break;
+    switch (c){
+      case '?': throw Err() << name << ": unknown option: -" << (char)optopt;
+      case ':': throw Err() << name << ": no argument: -" << (char)optopt;
+      case 'F': fmin = atof(optarg); break;
+      case 'G': fmax = atof(optarg); break;
+      case 'w': win  = atof(optarg); break;
+    }
+  }
+  if (argc-optind>0) throw Err() << name << ": extra argument found: " << argv[0];
+
+
+  int N  = s.get_n();
+  int cN  = s.get_ch();
+  if (N<1 || cN<1) return;
+  int ch = 0;
+
+  for (int iw=win; iw<N-win; iw+=win){
+    vector<double> ret = ::fit_signal_fixfre(
+      s.chan[ch].data()+iw, win, s.chan[ch].sc, s.dt, s.t0, fmin, fmax);
+
+    ff << iw*s.dt << "\t"
+       << setprecision(12) << ret[0] << "\t"
+       << setprecision(6)  << ret[1] << "\t"
+       << setprecision(6)  << ret[2] << "\t"
+       << setprecision(6)  << ret[3] << "\n";
+  }
+
+}
+
+/******************************************************************/
+void
 lockin(ostream & ff, const Signal & s, const int argc, char **argv) {
   const char *name = "lockin";
 

@@ -124,6 +124,11 @@ void help(){
           "       -G <value>  -- high frequency limit\n"
           "       -N <value>  -- number of signals (default 1)\n"
           "       -s (1|0)    -- sort results by frequency (default 1)\n"
+          "     sfit -- Sliding fit (exponential decay, constant frequency).\n"
+          "       Options:\n"
+          "       -F <value>  -- low frequency limit\n"
+          "       -G <value>  -- high frequency limit\n"
+          "       -w <value>  -- window length (points, default 1024)\n"
           "     lockin        -- Detect signal using another channel as reference.\n"
           "       Options:\n"
           "       -F <value>  -- low frequency limit\n"
@@ -235,6 +240,7 @@ main(int argc, char *argv[]){
     else if (strcasecmp(flt, "sfft_pnm_ad")==0)       flt_sfft_pnm_ad(std::cout, sig, argc, argv);
     else if (strcasecmp(flt, "fit")==0)               fit(std::cout, sig, argc, argv);
     else if (strcasecmp(flt, "fitn")==0)              fitn(std::cout, sig, argc, argv);
+    else if (strcasecmp(flt, "sfit")==0)              sfit(std::cout, sig, argc, argv);
     else if (strcasecmp(flt, "lockin")==0)            lockin(std::cout, sig, argc, argv);
     else if (strcasecmp(flt, "slockin")==0)           slockin(std::cout, sig, argc, argv);
     else if (strcasecmp(flt, "peak")==0)              peak(std::cout, sig, argc, argv);
