@@ -129,6 +129,7 @@ void help(){
           "       -F <value>  -- low frequency limit\n"
           "       -G <value>  -- high frequency limit\n"
           "       -w <value>  -- window length (points, default 1024)\n"
+          "       -m          -- output time as a midpoint of each sliding interval (default: starting point)\n"
           "     lockin        -- Detect signal using another channel as reference.\n"
           "       Options:\n"
           "       -F <value>  -- low frequency limit\n"
