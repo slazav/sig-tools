@@ -722,7 +722,7 @@ flt_sfft_peak(ostream & ff, const Signal & s, const int argc, char **argv) {
 
     if (x0<x1 || x0>x3) {x0=x2; y0=y2;}
 
-    ff << t0 << " " << x0 << " " << (y1+y2+y3)/3 << " "
+    ff << t0 << " " << setprecision(10) << x0 << " " << setprecision(8) << (y1+y2+y3)/3 << " "
        << (fft.abs(iw1f)+fft.abs(iw2f))/2 << "\n";
   }
 
