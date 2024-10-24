@@ -58,19 +58,19 @@ main(int argc, char *argv[]){
     if (argc<1) { help(); return 0; }
 
     std::ifstream ff(argv[0]);
-    Signal sig = read_signal(ff);
+    Signal sig_h = read_signal_h(ff);
     argc-=-1;
     argv+=-1;
 
     if (pars.size()==0) throw Err() << "Parameters are not specified, use -p option\n";
     else if (hm) cout << "# Signal parameters:\n";
     for (int i=0; i<pars.size(); i++) {
-      if      (strcasecmp(pars[i], "N")==0)     { if (hm) cout << "  points: "; cout << sig.get_n() << "\n"; }
-      else if (strcasecmp(pars[i], "dt")==0)    { if (hm) cout << "  dt: ";     cout << setprecision(8) << sig.dt << "\n"; }
-      else if (strcasecmp(pars[i], "t0")==0)    { if (hm) cout << "  t0: ";     cout << sig.t0 << "\n"; }
-      else if (strcasecmp(pars[i], "t0abs")==0) { if (hm) cout << "  t0abs: ";  cout << sig.t0abs_str << "\n"; }
-      else if (strcasecmp(pars[i], "dtxN")==0)  { if (hm) cout << "  dtxN: ";   cout << sig.dt*sig.get_n() << "\n"; }
-      else if (strcasecmp(pars[i], "Nxdt")==0)  { if (hm) cout << "  Nxdt: ";   cout << sig.dt*sig.get_n() << "\n"; }
+      if      (strcasecmp(pars[i], "N")==0)     { if (hm) cout << "  points: "; cout << sig_h.points << "\n"; }
+      else if (strcasecmp(pars[i], "dt")==0)    { if (hm) cout << "  dt: ";     cout << setprecision(8) << sig_h.dt << "\n"; }
+      else if (strcasecmp(pars[i], "t0")==0)    { if (hm) cout << "  t0: ";     cout << sig_h.t0 << "\n"; }
+      else if (strcasecmp(pars[i], "t0abs")==0) { if (hm) cout << "  t0abs: ";  cout << sig_h.t0abs_str << "\n"; }
+      else if (strcasecmp(pars[i], "dtxN")==0)  { if (hm) cout << "  dtxN: ";   cout << sig_h.dt*sig_h.points << "\n"; }
+      else if (strcasecmp(pars[i], "Nxdt")==0)  { if (hm) cout << "  Nxdt: ";   cout << sig_h.dt*sig_h.points << "\n"; }
       else throw Err() << "Unknown parameter: " << pars[i];
     }
   }
