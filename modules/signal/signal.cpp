@@ -261,7 +261,7 @@ Signal read_sig(istream & ff){
   ios::pos_type start_pos = ff.tellg();
   ff.seekg (0, ios::end);
   if (ff.fail()) throw Err() << "Can't read file: seek error";
-  int length = ff.tellg() - start_pos;
+  long long int length = ff.tellg() - start_pos;
   ff.seekg(start_pos, ios::beg);
   if (ff.fail()) throw Err() << "Can't read file: seek error";
 
