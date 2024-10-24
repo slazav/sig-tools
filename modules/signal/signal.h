@@ -24,6 +24,7 @@ class Signal{
     double t0,dt; // time shift, time step
     time_t t0abs; // absolute time (integer seconds)
     std::string t0abs_str; // absolute time (as a string)
+    long long int points;  // number of points
     std::vector<Channel> chan;
 
     // constructor
@@ -70,11 +71,14 @@ class Signal{
 /***********************************************************/
 // Reading signals
 
-// autodetect format
-Signal read_signal(std::istream & ff);
+// autodetect format (note: 'read_data=false' is working only with SIG format for now)
+Signal read_signal(std::istream & ff, bool read_data = true);
+
+// calls read_signal(ff,read_data=false), avoiding reading the data
+Signal read_signal_h(std::istream & ff);
 
 // SIG/SIGF formats
-Signal read_sig(std::istream & ff);
+Signal read_sig(std::istream & ff, bool read_data = true);
 
 // WAV format
 Signal read_wav(std::istream & ff);

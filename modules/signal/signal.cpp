@@ -121,7 +121,7 @@ Signal::find_pulse(const int ch, const double k, const double t1, const double t
 }
 
 /***********************************************************/
-Signal read_signal(istream & ff){
+Signal read_signal(istream & ff, bool read_data){
   const int hsize=4;
   char head[hsize];
   if (ff.fail()) throw Err() << "Can't read file";
@@ -137,7 +137,7 @@ Signal read_signal(istream & ff){
 
   // sig and sigf formats
   if (strncmp(head, "*SIG", hsize)==0)
-    return read_sig(ff);
+    return read_sig(ff,read_data);
 
   // wav format
   if (strncmp(head, "RIFF", hsize)==0)
@@ -161,8 +161,15 @@ Signal read_signal(istream & ff){
   throw Err() << "unknown format (not SIG, WAV, FLAC or GZ)";
 }
 
+
 /***********************************************************/
-Signal read_sig(istream & ff){
+Signal read_signal_h(istream & ff){
+  return read_signal(ff, false);
+}
+
+
+/***********************************************************/
+Signal read_sig(istream & ff, bool read_data){
 
   if (ff.fail()) throw Err() << "Can't read file";
   Signal sig;
@@ -214,6 +221,7 @@ Signal read_sig(istream & ff){
     if (key == "points"){
       if (valw.size()<1) throw Err() << "Broken file: " << line;
       N = atof(valw[0].c_str());
+      sig.points = atoll(valw[0].c_str());
     }
     // time step
     if (key == "dt"){
@@ -254,6 +262,9 @@ Signal read_sig(istream & ff){
       }
     }
   }
+
+  if (!read_data) return sig;
+
   // number of channels
   int num = sig.chan.size();
 
@@ -276,7 +287,6 @@ Signal read_sig(istream & ff){
     int bufsize = 1<<16;
     int cnt = 0;
     if (num<1) return sig;
-
     vector<int16_t> buf(bufsize*num);
     while (!ff.eof()){
       ff.read((char *)buf.data(), bufsize*num*sizeof(int16_t));
@@ -318,6 +328,7 @@ Signal read_sig(istream & ff){
   }
   return sig;
 }
+
 
 /***********************************************************/
 Signal read_txt(istream & ff){
