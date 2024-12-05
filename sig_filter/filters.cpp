@@ -1042,11 +1042,13 @@ sfit(ostream & ff, const Signal & s, const int argc, char **argv) {
   int winp = 1024;
   bool win_in_s = false;
   double win;
+  double stp = 0;
+  int stpp = 0;
   bool midp = false;
   bool use_def_w = true;
   // parse options (opterr==0, optint==1)
   while(1){
-    int c = getopt(argc, argv, "+F:G:tw:m");
+    int c = getopt(argc, argv, "+F:G:tw:s:m");
     if (c==-1) break;
     switch (c){
       case '?': throw Err() << name << ": unknown option: -" << (char)optopt;
@@ -1055,14 +1057,18 @@ sfit(ostream & ff, const Signal & s, const int argc, char **argv) {
       case 'G': fmax = atof(optarg); break;
       case 't': win_in_s  = true; break;
       case 'w': win = atof(optarg); use_def_w = false; break;
+      case 's': stp  = atof(optarg); break;
       case 'm': midp  = true; break;
     }
   }
   if (argc-optind>0) throw Err() << name << ": extra argument found: " << argv[0];
   if (! use_def_w) {
-    if (win_in_s) { winp = int(win/s.dt);  }
-    else winp = win;
+    if (win_in_s) { winp = int(win/s.dt); }
+    else { winp = win; }
   };
+  if (stp<=0) { stpp = winp; }
+  else { stpp=winp*stp/win; }
+  if (stpp==0) throw Err() << name << " filter step too small: " << stpp << " points";
 
   int N  = s.get_n();
   int cN  = s.get_ch();
@@ -1070,7 +1076,7 @@ sfit(ostream & ff, const Signal & s, const int argc, char **argv) {
   int ch = 0;
   double it0 = winp*0.5*s.dt*int(midp);
 
-  for (int iw=0; iw<N-winp; iw+=winp){
+  for (int iw=0; iw<N-winp; iw+=stpp){
     vector<double> ret = ::fit_signal_fixfre(
       s.chan[ch].data()+iw, winp, s.chan[ch].sc, s.dt, s.t0, fmin, fmax);
 
