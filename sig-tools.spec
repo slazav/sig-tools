@@ -38,3 +38,7 @@ sig-tools -- tools for working with SIG data format
 %_tcldatadir/%libname-%libver/pkgIndex.tcl
 
 %changelog
+* Sun Apr 20 2025 Vladislav Zavjalov <slazav@altlinux.org> 1.0-alt1
+- First version. The package have been splitted from pico_osc project (thanks to @suntar)
+
+
